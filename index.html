@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medieval Memory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IM+Fell+English&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⚔️</text></svg>" />
+</head>
+<body>
+
+  <!-- ===== Main menu ===== -->
+  <section id="screen-menu" class="screen">
+    <h1 class="title">⚔ Medieval Memory ⚔</h1>
+    <p class="subtitle">Match the arms of the realm. Swiftness and a keen mind shall be rewarded.</p>
+
+    <div class="menu-buttons">
+      <button id="play-easy" class="btn btn-play">
+        <span class="btn-label">Easy</span><span class="btn-sub">4 × 4</span>
+      </button>
+      <button id="play-medium" class="btn btn-play">
+        <span class="btn-label">Medium</span><span class="btn-sub">6 × 6</span>
+      </button>
+      <button id="play-hard" class="btn btn-play">
+        <span class="btn-label">Hard</span><span class="btn-sub">10 × 10</span>
+      </button>
+    </div>
+
+    <div class="scoreboard">
+      <h2>🏆 Hall of Records</h2>
+      <table>
+        <tbody>
+          <tr><th>Easy</th><td id="best-easy">…</td></tr>
+          <tr><th>Medium</th><td id="best-medium">…</td></tr>
+          <tr><th>Hard</th><td id="best-hard">…</td></tr>
+        </tbody>
+      </table>
+      <p class="score-hint">Score = seconds × 100 + mistakes × 250 — lower is better.</p>
+      <p id="scoreboard-note" class="score-note"></p>
+    </div>
+  </section>
+
+  <!-- ===== Game ===== -->
+  <section id="screen-game" class="screen hidden">
+    <header class="hud">
+      <span class="hud-item">⚔ <span id="hud-difficulty"></span></span>
+      <span class="hud-item">⏳ <span id="hud-timer">00:00</span></span>
+      <span class="hud-item">✖ Mistakes: <span id="hud-mistakes">0</span></span>
+      <button id="btn-quit" class="btn btn-small">Retreat</button>
+    </header>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- ===== Win overlay ===== -->
+  <div id="win-overlay" class="overlay hidden">
+    <div class="dialog">
+      <h2>Victory!</h2>
+      <p class="win-stats">
+        Time: <strong id="win-time"></strong> &nbsp;·&nbsp;
+        Mistakes: <strong id="win-mistakes"></strong>
+      </p>
+      <p class="win-score">Score: <strong id="win-score"></strong></p>
+      <p id="win-record" class="win-record"></p>
+
+      <form id="submit-form">
+        <input id="submit-name" type="text" maxlength="20" placeholder="Thy name, champion" autocomplete="off" required />
+        <button id="submit-btn" type="submit" class="btn">Inscribe Score</button>
+      </form>
+      <p id="submit-status" class="submit-status"></p>
+
+      <div class="dialog-actions">
+        <button id="btn-again" class="btn">Play Again</button>
+        <button id="btn-menu" class="btn">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>
