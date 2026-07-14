@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medieval Memory — Icon Gallery</title>
+  <style>
+    body { font-family: Georgia, serif; background: #2c1e10; color: #e8d9b0; padding: 2rem; margin: 0; }
+    h1 { text-align: center; font-size: 1.4rem; margin-bottom: 1.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; max-width: 1200px; margin: 0 auto; }
+    .tile { background: linear-gradient(160deg, #e8d9b0, #d4c08c); border: 2px solid #4a3020; border-radius: 8px; padding: 8px 4px 4px; text-align: center; }
+    .tile svg { width: 80%; aspect-ratio: 1; display: block; margin: 0 auto; }
+    .tile span { font-size: 0.7rem; color: #2e2016; display: block; padding: 2px 0 4px; }
+    .sizes { display: flex; gap: 24px; justify-content: center; margin: 2rem 0 1rem; align-items: end; }
+    .sizes .tile { padding: 6px; }
+    .sizes svg { margin: 0 auto; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Icon Gallery — all card faces (hard mode uses 50 of these)</h1>
+  <div class="grid" id="grid"></div>
+  <h1>Size check (easy / medium / hard card sizes)</h1>
+  <div class="sizes" id="sizes"></div>
+  <script type="module">
+    import { FACES } from './js/icons.js';
+    const grid = document.getElementById('grid');
+    for (const f of FACES) {
+      const t = document.createElement('div');
+      t.className = 'tile';
+      t.innerHTML = `${f.svg}<span>${f.label}</span>`;
+      grid.appendChild(t);
+    }
+    const sizes = document.getElementById('sizes');
+    for (const px of [140, 90, 55]) {
+      const t = document.createElement('div');
+      t.className = 'tile';
+      t.innerHTML = FACES[0].svg;
+      t.querySelector('svg').style.width = px + 'px';
+      sizes.appendChild(t);
+    }
+    document.title = `Icon Gallery (${FACES.length} faces)`;
+  </script>
+</body>
+</html>
