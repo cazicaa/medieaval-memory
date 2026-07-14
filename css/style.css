@@ -29,6 +29,11 @@ body {
 
 .hidden { display: none !important; }
 
+/* Touch: no 300ms tap delay / double-tap zoom on cards and buttons,
+   no tap highlight flash, no accidental text selection while playing */
+.card, .btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.screen, .overlay { user-select: none; -webkit-user-select: none; }
+
 .screen {
   width: 100%;
   max-width: 1000px;

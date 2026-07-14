@@ -36,34 +36,37 @@ const ICONS = [
   <circle cx="50" cy="87" r="5.5" fill="${GOLD}" stroke="${O}" stroke-width="1.8"/>
   <circle cx="48.3" cy="85.3" r="1.7" fill="${GOLD_L}"/>` },
 
-{ id: 'dagger', label: 'Dagger', svg: `
+{ id: 'dagger', label: 'Dagger', svg: `<g transform="rotate(45 50 50)">
   <path d="M50 12 C44 22 45.5 40 47 54 L53 54 C54.5 40 56 22 50 12 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.8"/>
   <path d="M50 12 C44 22 45.5 40 47 54 L50 54 C49.4 38 49.2 24 50 12 Z" fill="${STEEL_D}" opacity="0.5"/>
   <rect x="37" y="54" width="26" height="5" rx="2" fill="${IRON_D}" stroke="${O}" stroke-width="1.6"/>
   <rect x="45.5" y="59" width="9" height="14" fill="${LEATHER}" stroke="${O}" stroke-width="1.8"/>
   <line x1="45.5" y1="63" x2="54.5" y2="64.5" stroke="${WOOD_D}" stroke-width="1.3"/>
   <line x1="45.5" y1="67.5" x2="54.5" y2="69" stroke="${WOOD_D}" stroke-width="1.3"/>
-  <circle cx="50" cy="77.5" r="4.5" fill="${IRON}" stroke="${O}" stroke-width="1.7"/>` },
+  <circle cx="50" cy="77.5" r="4.5" fill="${IRON}" stroke="${O}" stroke-width="1.7"/></g>` },
 
-{ id: 'battleaxe', label: 'Battle Axe', svg: `
-  <rect x="47.5" y="8" width="5" height="84" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
-  <line x1="50" y1="14" x2="50" y2="88" stroke="${WOOD_D}" stroke-width="1" opacity="0.6"/>
-  <path d="M48 12 Q18 14 15 42 Q30 34 48 40 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
-  <path d="M44 16 Q26 19 21 37" fill="none" stroke="${STEEL_D}" stroke-width="1.8"/>
-  <polygon points="52,20 64,24 52,30" fill="${STEEL_D}" stroke="${O}" stroke-width="1.7"/>
+{ id: 'battleaxe', label: 'Battle Axe', svg: `<g transform="rotate(-45 50 50)">
+  <rect x="47.5" y="10" width="5" height="82" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
+  <line x1="50" y1="16" x2="50" y2="88" stroke="${WOOD_D}" stroke-width="1" opacity="0.6"/>
+  <polygon points="48,22 37,26.5 48,31" fill="${STEEL_D}" stroke="${O}" stroke-width="1.5"/>
+  <path d="M52 20 C62 16 70 13 77 8 Q87 27 77 46 C70 40 62 36 52 33 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
+  <path d="M77.5 11 Q85.5 27 77.5 43" fill="none" stroke="#d9e0e6" stroke-width="2.2"/>
+  <rect x="44.5" y="20" width="11" height="13" rx="2" fill="${IRON_D}" stroke="${O}" stroke-width="1.5"/>
+  <line x1="45" y1="42" x2="55" y2="43.5" stroke="${LEATHER}" stroke-width="2.2"/>
+  <line x1="45" y1="46" x2="55" y2="47.5" stroke="${LEATHER}" stroke-width="2.2"/></g>` },
+
+{ id: 'doubleaxe', label: 'Double Axe', svg: `
+  <rect x="47.5" y="12" width="5" height="80" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
+  <polygon points="50,4 46.5,13 53.5,13" fill="${STEEL}" stroke="${O}" stroke-width="1.5"/>
+  <path d="M52 22 C62 18 70 15 77 10 Q87 29 77 48 C70 42 62 38 52 35 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
+  <path d="M48 22 C38 18 30 15 23 10 Q13 29 23 48 C30 42 38 38 48 35 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
+  <path d="M77.5 13 Q85.5 29 77.5 45" fill="none" stroke="#d9e0e6" stroke-width="2.2"/>
+  <path d="M22.5 13 Q14.5 29 22.5 45" fill="none" stroke="#d9e0e6" stroke-width="2.2"/>
+  <rect x="44.5" y="22" width="11" height="13" rx="2" fill="${IRON_D}" stroke="${O}" stroke-width="1.5"/>
   <line x1="45" y1="44" x2="55" y2="45.5" stroke="${LEATHER}" stroke-width="2.2"/>
   <line x1="45" y1="48" x2="55" y2="49.5" stroke="${LEATHER}" stroke-width="2.2"/>` },
 
-{ id: 'doubleaxe', label: 'Double Axe', svg: `
-  <rect x="47.5" y="8" width="5" height="84" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
-  <path d="M47 14 Q20 18 19 46 Q31 38 47 42 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
-  <path d="M53 14 Q80 18 81 46 Q69 38 53 42 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
-  <path d="M43 18 Q26 22 24 41" fill="none" stroke="${STEEL_D}" stroke-width="1.8"/>
-  <path d="M57 18 Q74 22 76 41" fill="none" stroke="${STEEL_D}" stroke-width="1.8"/>
-  <line x1="45" y1="46" x2="55" y2="47.5" stroke="${LEATHER}" stroke-width="2.2"/>
-  <line x1="45" y1="50" x2="55" y2="51.5" stroke="${LEATHER}" stroke-width="2.2"/>` },
-
-{ id: 'mace', label: 'Flanged Mace', svg: `
+{ id: 'mace', label: 'Flanged Mace', svg: `<g transform="rotate(30 50 50)">
   <rect x="47.5" y="40" width="5" height="52" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
   <rect x="43.5" y="36" width="13" height="5" rx="1.5" fill="${IRON_D}" stroke="${O}" stroke-width="1.5"/>
   <path d="M41 6 Q30 21 41 36 L46 32 Q39.5 21 46 10 Z" fill="${STEEL_D}" stroke="${O}" stroke-width="1.7"/>
@@ -71,7 +74,7 @@ const ICONS = [
   <ellipse cx="50" cy="21" rx="8" ry="16" fill="${STEEL}" stroke="${O}" stroke-width="1.9"/>
   <line x1="50" y1="7" x2="50" y2="35" stroke="${STEEL_D}" stroke-width="1.6"/>
   <circle cx="50" cy="3.5" r="3" fill="${STEEL}" stroke="${O}" stroke-width="1.6"/>
-  <circle cx="50" cy="88" r="4" fill="${IRON_D}" stroke="${O}" stroke-width="1.6"/>` },
+  <circle cx="50" cy="88" r="4" fill="${IRON_D}" stroke="${O}" stroke-width="1.6"/></g>` },
 
 { id: 'flail', label: 'Flail', svg: `
   <rect x="43" y="56" width="7" height="36" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
@@ -87,7 +90,7 @@ const ICONS = [
   <circle cx="68" cy="22" r="9.5" fill="${IRON}" stroke="${O}" stroke-width="1.8"/>
   <path d="M62.5 18 Q64 15 67.5 14.5" fill="none" stroke="${STEEL}" stroke-width="1.8"/>` },
 
-{ id: 'warhammer', label: 'Warhammer', svg: `
+{ id: 'warhammer', label: 'Warhammer', svg: `<g transform="rotate(-30 50 50)">
   <rect x="47.5" y="12" width="5" height="80" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.8"/>
   <polygon points="50,2 46,13 54,13" fill="${STEEL}" stroke="${O}" stroke-width="1.6"/>
   <polygon points="52,15 76,20.5 52,26" fill="${STEEL_D}" stroke="${O}" stroke-width="1.7"/>
@@ -96,14 +99,14 @@ const ICONS = [
   <line x1="40" y1="15" x2="40" y2="26" stroke="${STEEL_D}" stroke-width="1.4"/>
   <line x1="45" y1="15" x2="45" y2="26" stroke="${STEEL_D}" stroke-width="1.4"/>
   <line x1="45" y1="31" x2="55" y2="32.5" stroke="${LEATHER}" stroke-width="2.2"/>
-  <line x1="45" y1="35" x2="55" y2="36.5" stroke="${LEATHER}" stroke-width="2.2"/>` },
+  <line x1="45" y1="35" x2="55" y2="36.5" stroke="${LEATHER}" stroke-width="2.2"/></g>` },
 
-{ id: 'spear', label: 'Spear', svg: `
+{ id: 'spear', label: 'Spear', svg: `<g transform="rotate(45 50 50)">
   <rect x="48" y="28" width="4.5" height="64" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.7"/>
   <path d="M50 3 Q43.5 16 46.5 28 L53.5 28 Q56.5 16 50 3 Z" fill="${STEEL}" stroke="${O}" stroke-width="1.8"/>
   <line x1="50" y1="8" x2="50" y2="27" stroke="${STEEL_D}" stroke-width="1.3"/>
   <rect x="45" y="28" width="10" height="5" rx="1.5" fill="${IRON_D}" stroke="${O}" stroke-width="1.5"/>
-  <line x1="46" y1="38" x2="54.5" y2="39.5" stroke="${LEATHER}" stroke-width="2"/>` },
+  <line x1="46" y1="38" x2="54.5" y2="39.5" stroke="${LEATHER}" stroke-width="2"/></g>` },
 
 { id: 'halberd', label: 'Halberd', svg: `
   <rect x="48" y="12" width="4.5" height="80" rx="2" fill="${WOOD}" stroke="${O}" stroke-width="1.7"/>
