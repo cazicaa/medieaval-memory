@@ -26,25 +26,34 @@ function writeLocal(scores) {
   localStorage.setItem(LS_KEY, JSON.stringify(scores));
 }
 
-/* Best (highest) score per difficulty: { easy: {name, score} | null, medium: ..., hard: ... } */
-export async function getBestScores() {
-  const best = { easy: null, medium: null, hard: null };
+const DIFFICULTIES = ['easy', 'medium', 'hard'];
+
+/* Top N scores per difficulty, highest first: { easy: [{name, score, ...}], medium: [...], hard: [...] } */
+export async function getTopScores(limit = 5) {
+  const top = { easy: [], medium: [], hard: [] };
 
   if (remoteEnabled()) {
-    const url = `${SUPABASE_URL}/rest/v1/scores?select=name,difficulty,score,time_ms,mistakes&order=score.desc`;
-    const res = await fetch(url, { headers: headers() });
-    if (!res.ok) throw new Error(`Failed to load scores (${res.status})`);
-    const rows = await res.json();
-    for (const row of rows) {
-      if (!best[row.difficulty]) best[row.difficulty] = row;
-    }
-    return best;
+    await Promise.all(
+      DIFFICULTIES.map(async (difficulty) => {
+        const url =
+          `${SUPABASE_URL}/rest/v1/scores?select=name,difficulty,score,time_ms,mistakes` +
+          `&difficulty=eq.${difficulty}&order=score.desc&limit=${limit}`;
+        const res = await fetch(url, { headers: headers() });
+        if (!res.ok) throw new Error(`Failed to load scores (${res.status})`);
+        top[difficulty] = await res.json();
+      })
+    );
+    return top;
   }
 
-  for (const row of readLocal().sort((a, b) => b.score - a.score)) {
-    if (!best[row.difficulty]) best[row.difficulty] = row;
+  const scores = readLocal();
+  for (const difficulty of DIFFICULTIES) {
+    top[difficulty] = scores
+      .filter((row) => row.difficulty === difficulty)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
   }
-  return best;
+  return top;
 }
 
 export async function submitScore({ name, difficulty, score, timeMs, mistakes }) {

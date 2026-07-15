@@ -114,8 +114,8 @@ body {
     linear-gradient(180deg, var(--parchment), var(--parchment-dark));
   border: 3px double var(--wood);
   border-radius: 6px;
-  padding: 1.25rem 2rem;
-  min-width: min(28rem, 90vw);
+  padding: 1.25rem 1.75rem;
+  width: min(52rem, 94vw);
   box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
@@ -123,21 +123,99 @@ body {
   font-family: 'Cinzel', serif;
   text-align: center;
   font-size: 1.3rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9rem;
   color: var(--crimson);
 }
 
-.scoreboard table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
-
-.scoreboard th, .scoreboard td {
-  padding: 0.4rem 0.6rem;
-  border-bottom: 1px solid rgba(74, 48, 32, 0.3);
-  text-align: left;
+.leaderboards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 1.25rem;
 }
 
-.scoreboard th { font-family: 'Cinzel', serif; font-size: 0.95rem; width: 6.5rem; }
-.scoreboard td { font-weight: bold; }
-.scoreboard td.empty { font-weight: normal; font-style: italic; opacity: 0.6; }
+.leaderboard + .leaderboard {
+  border-left: 1px solid rgba(74, 48, 32, 0.3);
+  padding-left: 1.25rem;
+  margin-left: -0.1rem;
+}
+
+.leaderboard h3 {
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--wood);
+  letter-spacing: 0.04em;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 2px solid var(--gold);
+}
+
+.leaderboard ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-height: 9rem;
+}
+
+.leaderboard li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 4px;
+}
+
+.leaderboard li .rank {
+  width: 1.5rem;
+  flex-shrink: 0;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: var(--wood);
+}
+
+.leaderboard li .player {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.leaderboard li .pts {
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.leaderboard li.rank-1 { background: rgba(201, 162, 39, 0.28); }
+.leaderboard li.rank-2 { background: rgba(120, 120, 120, 0.18); }
+.leaderboard li.rank-3 { background: rgba(159, 97, 45, 0.18); }
+
+.leaderboard li.empty,
+.leaderboard li.loading {
+  justify-content: center;
+  font-weight: normal;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  .leaderboards { grid-template-columns: 1fr; gap: 0.9rem; }
+  .leaderboard + .leaderboard {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+    border-top: 1px solid rgba(74, 48, 32, 0.3);
+    padding-top: 0.7rem;
+  }
+  .leaderboard ol { min-height: 0; }
+}
 
 .score-hint, .score-note {
   margin-top: 0.7rem;

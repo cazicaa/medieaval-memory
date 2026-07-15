@@ -1,11 +1,14 @@
 import { FACES } from './icons.js';
-import { getBestScores, submitScore, remoteEnabled } from './scores.js';
+import { getTopScores, submitScore, remoteEnabled } from './scores.js';
 
 const DIFFICULTIES = {
   easy: { label: 'Easy', cols: 4, rows: 4 },
   medium: { label: 'Medium', cols: 6, rows: 6 },
   hard: { label: 'Hard', cols: 10, rows: 10 }
 };
+
+const LEADERBOARD_SIZE = 5;
+const RANK_MEDALS = ['🥇', '🥈', '🥉'];
 
 const STARTING_SCORE = 100000;
 const TIME_PENALTY_PER_SEC = 100;
@@ -69,6 +72,15 @@ function computeScore(elapsedMs, mistakes) {
   return Math.max(0, Math.round(raw));
 }
 
+function escapeHtml(str) {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  return str.replace(/[&<>"']/g, (c) => map[c]);
+}
+
+function rankLabel(index) {
+  return RANK_MEDALS[index] ?? `${index + 1}.`;
+}
+
 /* ---------- menu / scoreboard ---------- */
 
 async function refreshScoreboard() {
@@ -77,31 +89,37 @@ async function refreshScoreboard() {
     : 'Scores are stored locally in this browser (Supabase not configured yet).';
 
   for (const key of Object.keys(DIFFICULTIES)) {
-    const cell = $(`#best-${key}`);
-    cell.textContent = '…';
-    cell.classList.remove('empty');
+    $(`#board-${key}`).innerHTML = '<li class="loading">…</li>';
   }
 
-  let best;
+  let top;
   try {
-    best = await getBestScores();
+    top = await getTopScores(LEADERBOARD_SIZE);
   } catch (err) {
     console.error(err);
     for (const key of Object.keys(DIFFICULTIES)) {
-      $(`#best-${key}`).textContent = 'unavailable';
+      $(`#board-${key}`).innerHTML = '<li class="empty">unavailable</li>';
     }
     return;
   }
 
   for (const key of Object.keys(DIFFICULTIES)) {
-    const cell = $(`#best-${key}`);
-    const row = best[key];
-    if (row) {
-      cell.textContent = `${row.score} — ${row.name}`;
-    } else {
-      cell.textContent = 'no record yet';
-      cell.classList.add('empty');
+    const list = $(`#board-${key}`);
+    const rows = top[key];
+    if (!rows.length) {
+      list.innerHTML = '<li class="empty">No records yet</li>';
+      continue;
     }
+    list.innerHTML = rows
+      .map(
+        (row, i) => `
+      <li class="rank-${i + 1}">
+        <span class="rank">${rankLabel(i)}</span>
+        <span class="player">${escapeHtml(row.name)}</span>
+        <span class="pts">${row.score.toLocaleString()}</span>
+      </li>`
+      )
+      .join('');
   }
 }
 
@@ -227,8 +245,8 @@ async function onWin() {
   els.submitName.focus();
 
   try {
-    const best = await getBestScores();
-    const record = best[state.difficulty];
+    const top = await getTopScores(1);
+    const record = top[state.difficulty][0];
     if (!record || score > record.score) {
       els.winRecord.textContent = '🏆 A new record for this difficulty!';
     }

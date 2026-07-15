@@ -31,13 +31,20 @@
 
     <div class="scoreboard">
       <h2>🏆 Hall of Records</h2>
-      <table>
-        <tbody>
-          <tr><th>Easy</th><td id="best-easy">…</td></tr>
-          <tr><th>Medium</th><td id="best-medium">…</td></tr>
-          <tr><th>Hard</th><td id="best-hard">…</td></tr>
-        </tbody>
-      </table>
+      <div class="leaderboards">
+        <div class="leaderboard">
+          <h3>Easy</h3>
+          <ol id="board-easy"></ol>
+        </div>
+        <div class="leaderboard">
+          <h3>Medium</h3>
+          <ol id="board-medium"></ol>
+        </div>
+        <div class="leaderboard">
+          <h3>Hard</h3>
+          <ol id="board-hard"></ol>
+        </div>
+      </div>
       <p class="score-hint">Start with 100,000 points. Lose 100 per second and 250 per mistake — higher is better.</p>
       <p id="scoreboard-note" class="score-note"></p>
     </div>
