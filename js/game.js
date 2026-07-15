@@ -7,7 +7,9 @@ const DIFFICULTIES = {
   hard: { label: 'Hard', cols: 10, rows: 10 }
 };
 
-const MISTAKE_PENALTY = 250; // score = seconds*100 + mistakes*250, lower is better
+const STARTING_SCORE = 100000;
+const TIME_PENALTY_PER_SEC = 100;
+const MISTAKE_PENALTY = 250; // score = 100000 - seconds*100 - mistakes*250, higher is better
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -62,7 +64,9 @@ function formatTime(ms) {
 }
 
 function computeScore(elapsedMs, mistakes) {
-  return Math.round(elapsedMs / 10) + mistakes * MISTAKE_PENALTY;
+  const seconds = elapsedMs / 1000;
+  const raw = STARTING_SCORE - seconds * TIME_PENALTY_PER_SEC - mistakes * MISTAKE_PENALTY;
+  return Math.max(0, Math.round(raw));
 }
 
 /* ---------- menu / scoreboard ---------- */
@@ -225,7 +229,7 @@ async function onWin() {
   try {
     const best = await getBestScores();
     const record = best[state.difficulty];
-    if (!record || score < record.score) {
+    if (!record || score > record.score) {
       els.winRecord.textContent = '🏆 A new record for this difficulty!';
     }
   } catch {

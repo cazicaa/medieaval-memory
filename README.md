@@ -8,7 +8,8 @@ A medieval-themed memory match card game. Pure static frontend (vanilla JS, no b
 - **Easy** 4×4, **Medium** 6×6, **Hard** 10×10.
 - 52 unique hand-drawn card faces: weapons, armor, siege engines, buildings, magic items and
   tavern life — no recolored duplicates. Preview them all in [`gallery.html`](gallery.html).
-- **Score = seconds × 100 + mistakes × 250** (a mistake is a flipped pair that doesn't match). Lower is better.
+- **Score starts at 100,000** and loses 100 per second and 250 per mistake (a mistake is a flipped
+  pair that doesn't match), floored at 0. Higher is better.
 - The best score per difficulty is shown on the main menu; after winning you can submit your name + score.
 
 ## Setup

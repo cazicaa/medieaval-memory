@@ -26,12 +26,12 @@ function writeLocal(scores) {
   localStorage.setItem(LS_KEY, JSON.stringify(scores));
 }
 
-/* Best (lowest) score per difficulty: { easy: {name, score} | null, medium: ..., hard: ... } */
+/* Best (highest) score per difficulty: { easy: {name, score} | null, medium: ..., hard: ... } */
 export async function getBestScores() {
   const best = { easy: null, medium: null, hard: null };
 
   if (remoteEnabled()) {
-    const url = `${SUPABASE_URL}/rest/v1/scores?select=name,difficulty,score,time_ms,mistakes&order=score.asc`;
+    const url = `${SUPABASE_URL}/rest/v1/scores?select=name,difficulty,score,time_ms,mistakes&order=score.desc`;
     const res = await fetch(url, { headers: headers() });
     if (!res.ok) throw new Error(`Failed to load scores (${res.status})`);
     const rows = await res.json();
@@ -41,7 +41,7 @@ export async function getBestScores() {
     return best;
   }
 
-  for (const row of readLocal().sort((a, b) => a.score - b.score)) {
+  for (const row of readLocal().sort((a, b) => b.score - a.score)) {
     if (!best[row.difficulty]) best[row.difficulty] = row;
   }
   return best;

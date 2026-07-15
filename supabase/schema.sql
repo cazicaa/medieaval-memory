@@ -5,7 +5,7 @@ create table public.scores (
   id bigint generated always as identity primary key,
   name text not null check (char_length(trim(name)) between 1 and 20),
   difficulty text not null check (difficulty in ('easy', 'medium', 'hard')),
-  score integer not null check (score > 0),
+  score integer not null check (score >= 0),
   time_ms integer not null check (time_ms > 0),
   mistakes integer not null check (mistakes >= 0),
   created_at timestamptz not null default now()
